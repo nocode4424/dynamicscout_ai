@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app/backend
+      - /app/backend/node_modules
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env
+    depends_on:
+      - scraper
+    networks:
+      - dynamicscout-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
+    depends_on:
+      - backend
+    networks:
+      - dynamicscout-network
+    restart: unless-stopped
+
+  scraper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: scraper
+    volumes:
+      - ./scraper:/app/scraper
+      - /app/scraper/__pycache__
+    environment:
+      - PYTHONUNBUFFERED=1
+    env_file:
+      - .env
+    networks:
+      - dynamicscout-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 2G
+
+  proxy-manager:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: scraper
+    command: python -m scraper.proxy.manager
+    volumes:
+      - ./scraper:/app/scraper
+    env_file:
+      - .env
+    networks:
+      - dynamicscout-network
+    restart: unless-stopped
+    depends_on:
+      - scraper
+
+networks:
+  dynamicscout-network:
+    driver: bridge

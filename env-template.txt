@@ -1,0 +1,54 @@
+# DynamicScout AI Configuration
+# Copy this file to .env and update with your settings
+
+# Application Settings
+APP_ENV=development
+APP_PORT=3000
+APP_SECRET=your_app_secret_key_here
+LOG_LEVEL=info
+MAX_CONCURRENT_JOBS=5
+
+# Database Configuration (Supabase)
+SUPABASE_URL=https://agznpvjjwkmxljdcrekl.supabase.co
+SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFnem5wdmpqd2tteGxqZGNyZWtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE2MjYyNzQsImV4cCI6MjA1NzIwMjI3NH0.w2KahOm2zEoHTn3WlcgxzpAHzNv_GhpitBJ3j_rLoNc
+SUPABASE_DATABASE=Scout
+DATABASE_PW=Mlg0718!
+
+# LLM Configuration
+OPENROUTER_API_KEY=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
+DEFAULT_MODEL=anthropic/claude-3-opus
+LLM_TIMEOUT=30000
+# Additional models can be configured below
+# MODEL_ANTHROPIC=anthropic/claude-3-opus
+# MODEL_OPENAI=openai/gpt-4
+
+# Proxy Configuration
+USE_PROXIES=true
+PROXY_SERVICE=luminati
+# For Luminati
+LUMINATI_USERNAME=your_luminati_username
+LUMINATI_PASSWORD=your_luminati_password
+LUMINATI_ZONE=ALL
+# For other proxy services
+# SMARTPROXY_USERNAME=spu4ibggvx
+
+
+
+
+# SMARTPROXY_PASSWORD=oz9PCZ9elmpRa+e5q6
+
+# Scraper Settings
+SCRAPER_TIMEOUT=60000
+SCRAPER_USER_AGENT=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36
+SCRAPER_DEFAULT_DELAY=2000
+SCRAPER_MAX_RETRIES=3
+SCRAPER_CONCURRENCY=2
+
+# Browser Extension Settings
+EXTENSION_API_URL=http://localhost:3000/api
+EXTENSION_RECORDING_INTERVAL=500
+
+# Security Settings
+CORS_ORIGINS=http://localhost,http://localhost:80
+API_RATE_LIMIT=100
+API_RATE_WINDOW=600000
